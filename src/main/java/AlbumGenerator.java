@@ -3,13 +3,13 @@ import java.io.*;
 import javax.swing.*;
 public class AlbumGenerator
 {
-    static List <String> Albums=new LinkedList<>();
-
-    static Random generator=new Random();
-
     static List <String> Playlists;
 
-    public static void PlaylistGenerator()
+    static List <String> Albums=new LinkedList<>();
+
+    static Random Generator=new Random();
+
+    public static void GeneratePlaylist()
     {
         if(Albums.isEmpty())
         {
@@ -33,16 +33,21 @@ public class AlbumGenerator
 
             int playlistssize= Playlists.size(); // to be replaced later
 
-            String modus=JOptionPane.showInputDialog
-                    (null, "By Choice? => C; Randomly? => R; Everything? => E");
+            String [] modi={"By Choice", "Randomly", "Everything", "Exit"};
 
-            if(modus == null)
-            {
-                System.exit(-1);
-            }
+            int modus = JOptionPane.showInternalOptionDialog(
+                    null,
+                    "CHOOSE YOUR MODUS",
+                    "Modus selection",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    modi,
+                    null
+                    );
 
             switch (modus) {
-                case "C", "c" : {
+                case 0 : {
                     String playlist1 = JOptionPane.showInputDialog
                             (null, "Which playlist do you choose? (Between 1 and " + playlistssize + ")");
                     try {
@@ -57,19 +62,19 @@ public class AlbumGenerator
                         IncorrectNoAlert();
                     }
                 } break;
-                case "R", "r" : {
-                    playlist = generator.nextInt(Playlists.size() + 1);
+                case 1 : {
+                    playlist = Generator.nextInt(Playlists.size())+1;
+                    System.out.println(playlist);
 
                     singleplaylistcreated = true;
                 } break;
-                case "E", "e" : {
+                case 2 : {
                     for (int i = 1; i <= Playlists.size(); i++) {
                         Fill(i);
                     }
                 } break;
-                default : {
-                    JOptionPane.showMessageDialog(null, "Please choose one of the three options.");
-                    JOptionPane.showMessageDialog(null, "Trying Again.");
+                case 3: {
+                    System.exit(-1);
                 }
             }
 
@@ -78,13 +83,7 @@ public class AlbumGenerator
                 Fill(playlist);
             }
 
-            if(!Albums.isEmpty())
-            {
-                JOptionPane.showMessageDialog
-                        (null, "Attention, this playlist of "+Albums.size()+" albums rocks your face off!");
-            }
-
-            PlaylistGenerator();
+            GeneratePlaylist();
         }
         else Shuffle();
     }
@@ -118,16 +117,17 @@ public class AlbumGenerator
 
     private static List<String> getPlaylistFiles(String[] files)
     {
-        List<String> f = new LinkedList<>();
+        List<String> playlistFiles = new LinkedList<>();
 
         for (String file : files) {
             if (file.contains("txt")) {
-                f.add(file);
+                playlistFiles.add(file);
             }
         }
 
-        return f;
+        return playlistFiles;
     }
+
     public static void IncorrectNoAlert()
     {
         JOptionPane.showMessageDialog(null, "You have to enter the number of one of your playlists.");
@@ -136,13 +136,16 @@ public class AlbumGenerator
 
     public static void Shuffle()
     {
+        JOptionPane.showMessageDialog
+                (null, "Attention, this playlist of "+Albums.size()+" albums rocks your face off!");
+
         int queue=Albums.size()-1;
 
         while (queue>=0)
         {
             String print;
 
-            int point=generator.nextInt(Albums.size());
+            int point=Generator.nextInt(Albums.size());
 
             String album=Albums.get(point);
 
@@ -164,7 +167,7 @@ public class AlbumGenerator
     }
 
     public static void main(String[] args) {
-        PlaylistGenerator();
+        GeneratePlaylist();
+        System.exit(0);
     }
-
 }
