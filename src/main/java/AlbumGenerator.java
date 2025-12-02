@@ -3,7 +3,7 @@ import java.io.*;
 import javax.swing.*;
 public class AlbumGenerator
 {
-    static List <String> Albums=new LinkedList<String>();
+    static List <String> Albums=new LinkedList<>();
 
     static Random generator=new Random();
 
@@ -56,17 +56,17 @@ public class AlbumGenerator
                     } catch (NumberFormatException e) {
                         IncorrectNoAlert();
                     }
-                }
+                } break;
                 case "R", "r" : {
                     playlist = generator.nextInt(Playlists.size() + 1);
 
                     singleplaylistcreated = true;
-                }
+                } break;
                 case "E", "e" : {
                     for (int i = 1; i <= Playlists.size(); i++) {
                         Fill(i);
                     }
-                }
+                } break;
                 default : {
                     JOptionPane.showMessageDialog(null, "Please choose one of the three options.");
                     JOptionPane.showMessageDialog(null, "Trying Again.");
@@ -106,7 +106,7 @@ public class AlbumGenerator
 
         BufferedReader br = new BufferedReader(fr);
 
-        String album = "";
+        String album;
 
         while( (album = br.readLine()) != null )
         {
@@ -118,7 +118,7 @@ public class AlbumGenerator
 
     private static List<String> getPlaylistFiles(String[] files)
     {
-        List<String> f = new LinkedList<String>();
+        List<String> f = new LinkedList<>();
 
         for (String file : files) {
             if (file.contains("txt")) {
