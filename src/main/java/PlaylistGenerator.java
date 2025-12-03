@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 import javax.swing.*;
-public class AlbumGenerator
+public class PlaylistGenerator
 {
     static List <String> Playlists;
 
