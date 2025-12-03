@@ -55,19 +55,19 @@ public class AlbumGenerator
                             null,
                             formatPlaylists(Playlists),
                             null
-                    )+1;
+                    );
                     System.out.println(playlist);
 
                     singleplaylistcreated = true;
 
                 } break;
                 case 1 : {
-                    playlist = Generator.nextInt(Playlists.size())+1;
+                    playlist = Generator.nextInt(Playlists.size());
 
                     singleplaylistcreated = true;
                 } break;
                 case 2 : {
-                    for (int i = 1; i <= Playlists.size(); i++) {
+                    for (int i = 0; i < Playlists.size(); i++) {
                         Fill(i);
                     }
                 } break;
@@ -112,7 +112,7 @@ public class AlbumGenerator
     private static void Fill(int playlist)
     {
         try {
-            FillExc(Playlists.get(playlist - 1));
+            FillExc(Playlists.get(playlist));
         }
         catch(IOException e)
         {
