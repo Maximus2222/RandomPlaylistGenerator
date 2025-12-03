@@ -26,14 +26,14 @@ public class AlbumGenerator
                 JOptionPane.showMessageDialog
                         (null, "You may have to add some playlist files to the directory first.");
 
-                System.exit(-1);
+                System.exit(0);
             }
 
             int playlist=0;
 
             String [] modi={"By Choice", "Randomly", "Everything", "Exit"};
 
-            int modus = JOptionPane.showInternalOptionDialog(
+            int modus = JOptionPane.showOptionDialog(
                     null,
                     "CHOOSE YOUR MODUS",
                     "Modus selection",
@@ -46,7 +46,7 @@ public class AlbumGenerator
 
             switch (modus) {
                 case 0 : {
-                    playlist = JOptionPane.showInternalOptionDialog(
+                    playlist = JOptionPane.showOptionDialog(
                             null,
                             "These are your playlists:",
                             "Playlist selection",
@@ -56,7 +56,6 @@ public class AlbumGenerator
                             formatPlaylists(Playlists),
                             null
                     );
-                    System.out.println(playlist);
 
                     singleplaylistcreated = true;
 
@@ -72,7 +71,7 @@ public class AlbumGenerator
                     }
                 } break;
                 case 3: {
-                    System.exit(-1);
+                    System.exit(0);
                 }
             }
 
@@ -170,6 +169,7 @@ public class AlbumGenerator
 
     static void main() {
         GeneratePlaylist();
+
         System.exit(0);
     }
 }
