@@ -31,8 +31,6 @@ public class AlbumGenerator
 
             int playlist=0;
 
-            int playlistssize= Playlists.size(); // to be replaced later
-
             String [] modi={"By Choice", "Randomly", "Everything", "Exit"};
 
             int modus = JOptionPane.showInternalOptionDialog(
@@ -48,23 +46,23 @@ public class AlbumGenerator
 
             switch (modus) {
                 case 0 : {
-                    String playlist1 = JOptionPane.showInputDialog
-                            (null, "Which playlist do you choose? (Between 1 and " + playlistssize + ")");
-                    try {
-                        playlist = Integer.parseInt(playlist1);
+                    playlist = JOptionPane.showInternalOptionDialog(
+                            null,
+                            "These are your playlists:",
+                            "Playlist selection",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            formatPlaylists(Playlists),
+                            null
+                    )+1;
+                    System.out.println(playlist);
 
-                        if (playlist > playlistssize || playlist < 1) {
-                            IncorrectNoAlert();
-                        } else {
-                            singleplaylistcreated = true;
-                        }
-                    } catch (NumberFormatException e) {
-                        IncorrectNoAlert();
-                    }
+                    singleplaylistcreated = true;
+
                 } break;
                 case 1 : {
                     playlist = Generator.nextInt(Playlists.size())+1;
-                    System.out.println(playlist);
 
                     singleplaylistcreated = true;
                 } break;
@@ -86,6 +84,29 @@ public class AlbumGenerator
             GeneratePlaylist();
         }
         else Shuffle();
+    }
+
+    private static List<String> getPlaylistFiles(String[] files)
+    {
+        List<String> playlistFiles = new LinkedList<>();
+
+        for (String file : files) {
+            if (file.contains("txt")) {
+                playlistFiles.add(file);
+            }
+        }
+
+        return playlistFiles;
+    }
+
+    public static Object[] formatPlaylists(List<String> playlists) {
+        List<String> formattedPlaylists=new LinkedList<>();
+
+        for(String file: playlists){
+            formattedPlaylists.add(file.split("\\.")[0]);
+        }
+
+        return formattedPlaylists.toArray();
     }
 
     private static void Fill(int playlist)
@@ -113,25 +134,6 @@ public class AlbumGenerator
         }
 
         br.close();
-    }
-
-    private static List<String> getPlaylistFiles(String[] files)
-    {
-        List<String> playlistFiles = new LinkedList<>();
-
-        for (String file : files) {
-            if (file.contains("txt")) {
-                playlistFiles.add(file);
-            }
-        }
-
-        return playlistFiles;
-    }
-
-    public static void IncorrectNoAlert()
-    {
-        JOptionPane.showMessageDialog(null, "You have to enter the number of one of your playlists.");
-        JOptionPane.showMessageDialog(null, "Trying again.");
     }
 
     public static void Shuffle()
@@ -166,7 +168,7 @@ public class AlbumGenerator
         }
     }
 
-    public static void main(String[] args) {
+    static void main() {
         GeneratePlaylist();
         System.exit(0);
     }
