@@ -41,11 +41,12 @@ public class PlaylistGenerator
                     JOptionPane.QUESTION_MESSAGE,
                     null,
                     modi,
-                    null
+                    modi[0]
                     );
 
             switch (modus) {
                 case 0 : {
+                    Object[] playlists=formatPlaylists(Playlists);
                     playlist = JOptionPane.showOptionDialog(
                             null,
                             "These are your playlists:",
@@ -53,8 +54,8 @@ public class PlaylistGenerator
                             JOptionPane.DEFAULT_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
                             null,
-                            formatPlaylists(Playlists),
-                            null
+                            playlists,
+                            playlists[0]
                     );
 
                     singleplaylistcreated = true;
